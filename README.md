@@ -34,4 +34,17 @@ CloudTrail is a service that is provided by AWS which used to record, monitor, a
 
 <img width="1887" height="348" alt="image" src="https://github.com/user-attachments/assets/5803da81-fa99-4bb4-b92c-3377d58c9bb2" />
 
-Now stop the instance and start it again. Then navigate to CloudTrail -> event history and view the logs that show the stopping and starting of the instance. Now that we have a good view on account information we want to monitor traffic that 
+Now stop the instance and start it again. Then navigate to CloudTrail -> event history and view the logs that show the stopping and starting of the instance. Now that we have a good view on account information we want to monitor Network traffic. To do this we navigate to VPC -> select the VPC that you created -> open flow logs tab -> select create flow log. Name the flow logs, set to collect all logs, 10 minute agregation, send to CloudWatch logs, create and use a new service role, and AWS defalut format. 
+
+<img width="1366" height="647" alt="image" src="https://github.com/user-attachments/assets/9ca1d5b3-e8c3-40c3-8599-07270ea756a8" />
+
+To make sure that logs are working naviagte to CloudWatch -> logs -> log management -> select your group. Then view the logs that have been generated. 
+
+<img width="1567" height="258" alt="image" src="https://github.com/user-attachments/assets/8e6b67ca-a185-45e2-92fa-15c10fa8f560" />
+
+Now that we have confirmed that the logs are being forwarded correctly we will connect this to our home lab. To do this start the wazuh server and ssh into it using the command ssh wazuh@10.200.20.10. After that has been completed then enter the commands:
+sudo apt update
+sudo apt install awscli -y
+
+What these commands do is update the Wazuh server and add the aws extension to forward logs to the Wazuh server. Now we will create a IAM user that will be used for AWS logs. naviagte to IAM -> IAM users -> create user. Then name the user, select attach policies directly(attach the policy AmazonS3ReadOnlyAccess), and then create user. After it has been correctly created then select security credentials and create access key. Select Command Line Interface(CLI) then select next -> create access key.
+
