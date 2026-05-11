@@ -53,7 +53,7 @@ sudo nano /var/ossec/etc/ossec.conf
 
 Add this block at the bottom of the configuration file.
 
-<wodle name="aws-s3">
+```<wodle name="aws-s3">
   <disabled>no</disabled>
   <interval>10m</interval>
   <run_on_start>yes</run_on_start>
@@ -63,6 +63,7 @@ Add this block at the bottom of the configuration file.
     <aws_profile>default</aws_profile>
   </bucket>
 </wodle>
+```
 
 These commands update the permissions so that it is able to access the profile. Then viewing the logs for any configuration errors.
 sudo cp -r ~/.aws /root/
