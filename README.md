@@ -43,8 +43,29 @@ To make sure that logs are working naviagte to CloudWatch -> logs -> log managem
 <img width="1567" height="258" alt="image" src="https://github.com/user-attachments/assets/8e6b67ca-a185-45e2-92fa-15c10fa8f560" />
 
 Now that we have confirmed that the logs are being forwarded correctly we will connect this to our home lab. To do this start the wazuh server and ssh into it using the command ssh wazuh@10.200.20.10. After that has been completed then enter the commands:
+
 sudo apt update
 sudo apt install awscli -y
 
-What these commands do is update the Wazuh server and add the aws extension to forward logs to the Wazuh server. Now we will create a IAM user that will be used for AWS logs. naviagte to IAM -> IAM users -> create user. Then name the user, select attach policies directly(attach the policy AmazonS3ReadOnlyAccess), and then create user. After it has been correctly created then select security credentials and create access key. Select Command Line Interface(CLI) then select next -> create access key.
+What these commands do is update the Wazuh server and add the aws extension to forward logs to the Wazuh server. Now we will create a IAM user that will be used for AWS logs. naviagte to IAM -> IAM users -> create user. Then name the user, select attach policies directly(attach the policy AmazonS3ReadOnlyAccess), and then create user. After it has been correctly created then select security credentials and create access key. Select Command Line Interface(CLI) then select next -> create access key. Make sure that when the Access and secret keys are displayed that you save them becuase they will not be shown again. After this step has been done go back to the wazuh server and enter aws configure. Enter in the acces and secret keys. Input the region. modify the ossec.conf file with this command:
 
+sudo nano /var/ossec/etc/ossec.conf
+
+Add this block at the bottom of the configuration file.
+
+<wodle name="aws-s3">
+  <disabled>no</disabled>
+  <interval>10m</interval>
+  <run_on_start>yes</run_on_start>
+
+  <bucket type="cloudtrail">
+    <name>aws-cloudtrail-logs-190986995757-062883f2</name>
+    <aws_profile>default</aws_profile>
+  </bucket>
+</wodle>
+
+These commands update the permissions so that it is able to access the profile. Then viewing the logs for any configuration errors.
+sudo cp -r ~/.aws /root/
+sudo chown -R root:root /root/.aws
+sudo systemctl restart wazuh-manager
+sudo tail -f /var/ossec/logs/ossec.log
