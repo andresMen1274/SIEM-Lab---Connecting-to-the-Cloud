@@ -53,7 +53,8 @@ sudo nano /var/ossec/etc/ossec.conf
 
 Add this block at the bottom of the configuration file.
 
-```<wodle name="aws-s3">
+```
+<wodle name="aws-s3">
   <disabled>no</disabled>
   <interval>10m</interval>
   <run_on_start>yes</run_on_start>
