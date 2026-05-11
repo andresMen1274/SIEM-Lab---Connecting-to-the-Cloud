@@ -69,6 +69,9 @@ Add this block at the bottom of the configuration file.
 These commands update the permissions so that it is able to access the profile. Then viewing the logs for any configuration errors.
 
 sudo cp -r ~/.aws /root/
+
 sudo chown -R root:root /root/.aws
+
 sudo systemctl restart wazuh-manager
+
 sudo tail -f /var/ossec/logs/ossec.log
