@@ -7,4 +7,9 @@ Now we will make sure that the VPC and instance has been created. To do this nav
 
 <img width="1602" height="231" alt="image" src="https://github.com/user-attachments/assets/38374ced-ed80-4747-b30d-061c36e04ab6" />
 
+Now I will connect to the instance that I have created. Now using the key that was created we will ssh into the instance. This is done by entering this command.
+
+ssh -i .\<key name>.pem ec2-user@<IP address>
+
+<img width="841" height="252" alt="image" src="https://github.com/user-attachments/assets/69bd2c72-b04f-4f1b-bb7a-7ebd847f1181" />
 
