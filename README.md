@@ -13,3 +13,25 @@ ssh -i .\<key-name>.pem ec2-user@<> <-- IP address
 
 <img width="841" height="252" alt="image" src="https://github.com/user-attachments/assets/69bd2c72-b04f-4f1b-bb7a-7ebd847f1181" />
 
+Now I will check that everything has been configured correctly by entering these commands to see user, host name, and ip address.
+
+whoami
+hostname
+ip addr
+
+<img width="1140" height="487" alt="image" src="https://github.com/user-attachments/assets/946a576c-c92b-4401-bfe9-e157500dd251" />
+
+Now to make sure that the instance is updated and configure common tools are configured, enter these commands as follows:
+sudo dnf update -y
+sudo dnf install -y nmap tcpdump git htop
+
+Now we will generate some logs to make sure that we can view them. This can be done in various ways, but I will do so by running the commands:
+curl ifconfig.me
+ping -c 4 google.com
+sudo nmap -sS localhost
+
+CloudTrail is a service that is provided by AWS which used to record, monitor, and retain account information across AWS infastructre. Since we want to gather logs from each user we will create a trail. To do this navigate to CloudTrail -> create trail -> name the trail and select create trail. 
+
+<img width="1887" height="348" alt="image" src="https://github.com/user-attachments/assets/5803da81-fa99-4bb4-b92c-3377d58c9bb2" />
+
+Now stop the instance and start it again. Then navigate to CloudTrail -> event history and view the logs that show the stopping and starting of the instance. Now that we have a good view on account information we want to monitor traffic that 
